@@ -5,6 +5,7 @@ import { VideoTrimmer } from './components/VideoTrimmer'
 import { TextEditor } from './components/TextEditor'
 import { FilterSelector } from './components/FilterSelector'
 import { WatermarkEditor } from './components/WatermarkEditor'
+import { ExportPanel } from './components/ExportPanel'
 import type { TextOverlay, TrimRange, VideoFile, Watermark } from './types'
 
 const DEFAULT_TEXT_OVERLAY: TextOverlay = {
@@ -107,6 +108,15 @@ function App() {
                 />
                 <hr className="border-zinc-800 my-6" />
                 <WatermarkEditor watermark={watermark} onWatermarkChange={setWatermark} />
+                <hr className="border-zinc-800 my-6" />
+                <ExportPanel
+                  videoFile={video}
+                  trimStart={trim.start}
+                  trimEnd={trim.end}
+                  textOverlay={textOverlay}
+                  selectedFilterId={selectedFilterId}
+                  watermark={watermark}
+                />
               </div>
             </div>
           </div>

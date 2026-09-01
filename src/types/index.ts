@@ -39,3 +39,13 @@ export interface TextOverlay {
   textAlign: 'left' | 'center' | 'right';
   lineHeight: number; // multiplier, e.g. 1.4
 }
+
+export interface ExportPreset {
+  id: string;
+  name: string;
+  description: string;
+  width: number;
+  height: number;
+  crf: number; // quality (lower = better, 18-28 range)
+  maxBitrate: string; // e.g., '6M'
+}
