@@ -44,6 +44,37 @@ function getWatermarkOverlayPosition(position: Watermark['position']): string {
   }
 }
 
+/**
+ * Wraps text to fit within the video width. drawtext has no built-in
+ * wrapping, so lines are estimated from an average glyph width
+ * (~0.55 * fontSize) and rendered as stacked drawtext filters.
+ */
+function wrapText(text: string, fontSize: number, videoWidth: number): string[] {
+  const avgCharWidth = fontSize * 0.55
+  const availableWidth = videoWidth - 80 // 40px padding each side
+  const maxCharsPerLine = Math.max(1, Math.floor(availableWidth / avgCharWidth))
+
+  const words = text.split(' ')
+  const lines: string[] = []
+  let currentLine = ''
+
+  for (const word of words) {
+    if (currentLine.length === 0) {
+      currentLine = word
+    } else if ((currentLine + ' ' + word).length <= maxCharsPerLine) {
+      currentLine += ' ' + word
+    } else {
+      lines.push(currentLine)
+      currentLine = word
+    }
+  }
+  if (currentLine.length > 0) {
+    lines.push(currentLine)
+  }
+
+  return lines
+}
+
 function getTextX(textAlign: TextOverlay['textAlign']): string {
   switch (textAlign) {
     case 'left':
@@ -108,7 +139,11 @@ export function buildFFmpegArgs(options: BuildFFmpegArgsOptions): string[] {
   // (pre-written into the virtual filesystem) is required or the
   // filter fails to initialize entirely.
   if (textOverlay && textOverlay.text.trim()) {
-    const lines = textOverlay.text.split(/\r?\n/)
+    // Explicit newlines from the textarea are the user's intentional
+    // breaks — preserve them, then word-wrap each segment to the frame.
+    const lines = textOverlay.text
+      .split(/\r?\n/)
+      .flatMap((segment) => wrapText(segment, textOverlay.fontSize, preset.width))
     const lineHeightPx = Math.round(textOverlay.fontSize * textOverlay.lineHeight)
     const x = getTextX(textOverlay.textAlign)
     const fontFileParam = fontFile ? [`fontfile='${escapeDrawtextValue(fontFile)}'`] : []

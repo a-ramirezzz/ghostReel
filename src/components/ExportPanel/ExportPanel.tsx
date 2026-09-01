@@ -31,27 +31,17 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const cleanupVirtualFiles = async () => {
-    try {
-      await ffmpeg.deleteFile(INPUT_FILENAME)
-    } catch {
-      // file may not exist, ignore
-    }
+    const filesToClean = [INPUT_FILENAME, OUTPUT_FILENAME, getFontFileName(textOverlay.fontFamily)]
     if (watermark) {
+      filesToClean.push(WATERMARK_FILENAME)
+    }
+
+    for (const file of filesToClean) {
       try {
-        await ffmpeg.deleteFile(WATERMARK_FILENAME)
+        await ffmpeg.deleteFile(file)
       } catch {
         // file may not exist, ignore
       }
-    }
-    try {
-      await ffmpeg.deleteFile(getFontFileName(textOverlay.fontFamily))
-    } catch {
-      // file may not exist, ignore
-    }
-    try {
-      await ffmpeg.deleteFile(OUTPUT_FILENAME)
-    } catch {
-      // file may not exist, ignore
     }
   }
 
@@ -108,12 +98,25 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
       })
 
       console.log('[GhostReel] Full FFmpeg command:', ['ffmpeg', ...args].join(' '))
-      await ffmpeg.exec(args)
+
+      // FFmpeg.wasm sometimes throws Aborted() during cleanup even though
+      // the export completed and the output file is valid — don't fail yet,
+      // try to read the output first.
+      let execSucceeded = true
+      try {
+        await ffmpeg.exec(args)
+      } catch (execError) {
+        console.warn('[GhostReel] FFmpeg exec threw (may still have succeeded):', execError)
+        execSucceeded = false
+      }
 
       let data: Awaited<ReturnType<typeof ffmpeg.readFile>>
       try {
         data = await ffmpeg.readFile(OUTPUT_FILENAME)
       } catch {
+        if (!execSucceeded) {
+          throw new Error('La exportación falló. Intenta con un video más corto o diferente formato.')
+        }
         throw new Error('FFmpeg no generó el archivo de salida. Revisa la consola para ver los logs de FFmpeg.')
       }
       const bytes = data instanceof Uint8Array ? data : new TextEncoder().encode(data)
