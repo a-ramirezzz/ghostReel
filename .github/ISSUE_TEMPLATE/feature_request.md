@@ -1,19 +1,19 @@
 ---
-name: Sugerencia de mejora
-about: Sugerir una idea para GhostReel
+name: Feature Request
+about: Suggest an idea for GhostReel
 title: '[FEATURE] '
 labels: enhancement
 assignees: a-ramirezzz
 ---
 
-## Problema que resuelve
-Describe el problema o necesidad.
+## Problem It Solves
+Describe the problem or need.
 
-## Solución propuesta
-Cómo debería funcionar.
+## Proposed Solution
+How it should work.
 
-## Alternativas consideradas
-Otras opciones que hayas pensado.
+## Alternatives Considered
+Other options you've thought about.
 
-## Contexto adicional
-Cualquier otra información o screenshots.
+## Additional Context
+Any other information or screenshots.

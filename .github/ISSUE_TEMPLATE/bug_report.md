@@ -1,25 +1,25 @@
 ---
-name: Reporte de bug
-about: Reportar un problema con GhostReel
+name: Bug Report
+about: Report a problem with GhostReel
 title: '[BUG] '
 labels: bug
 assignees: a-ramirezzz
 ---
 
-## Descripción del bug
-Una descripción clara del problema.
+## Bug Description
+A clear description of the problem.
 
-## Pasos para reproducir
-1. Ir a '...'
-2. Hacer clic en '...'
-3. Ver el error
+## Steps to Reproduce
+1. Go to '...'
+2. Click on '...'
+3. See the error
 
-## Comportamiento esperado
-Qué debería pasar.
+## Expected Behavior
+What should happen.
 
 ## Screenshots
-Si aplica, agrega screenshots.
+If applicable, add screenshots.
 
-## Entorno
-- Navegador: [e.g., Chrome 120]
-- Sistema operativo: [e.g., macOS 15]
+## Environment
+- Browser: [e.g., Chrome 120]
+- Operating system: [e.g., macOS 15]

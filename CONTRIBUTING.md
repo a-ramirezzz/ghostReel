@@ -1,89 +1,89 @@
-# Contribuir a GhostReel
+# Contributing to GhostReel
 
-¡Gracias por tu interés en contribuir a GhostReel! Este documento te guiará en el proceso.
+Thank you for your interest in contributing to GhostReel! This document will guide you through the process.
 
-## Código de conducta
+## Code of Conduct
 
-Este proyecto sigue un estándar de respeto y profesionalismo. Sé amable, constructivo y paciente con los demás contribuidores.
+This project follows a standard of respect and professionalism. Be kind, constructive, and patient with other contributors.
 
-## ¿Cómo puedo contribuir?
+## How can I contribute?
 
-### Reportar bugs
+### Reporting Bugs
 
-Si encontraste un bug, abre un [issue](https://github.com/a-ramirezzz/ghostreel/issues) con:
+If you found a bug, open an [issue](https://github.com/a-ramirezzz/ghostreel/issues) with:
 
-- Una descripción clara del problema
-- Pasos para reproducirlo
-- Comportamiento esperado vs. comportamiento actual
-- Screenshots o videos si es posible
-- Tu navegador y sistema operativo
+- A clear description of the problem
+- Steps to reproduce it
+- Expected behavior vs. actual behavior
+- Screenshots or videos if possible
+- Your browser and operating system
 
-### Sugerir mejoras
+### Suggesting Improvements
 
-Las ideas son bienvenidas. Abre un issue con la etiqueta `enhancement` describiendo:
+Ideas are welcome. Open an issue with the `enhancement` label describing:
 
-- Qué problema resuelve tu sugerencia
-- Cómo debería funcionar
-- Cualquier referencia visual o ejemplo
+- What problem your suggestion solves
+- How it should work
+- Any visual reference or example
 
-### Enviar un Pull Request
+### Submitting a Pull Request
 
-1. **Fork** el repositorio
-2. **Crea una rama** desde `main`:
+1. **Fork** the repository
+2. **Create a branch** from `main`:
    ```bash
-   git checkout -b feature/mi-nueva-feature
+   git checkout -b feature/my-new-feature
    ```
-3. **Haz tus cambios** siguiendo las convenciones del proyecto:
-   - TypeScript estricto — sin `any`
-   - Solo Tailwind CSS para estilos — sin archivos CSS personalizados
-   - Textos de UI en español
-   - Nombres de variables y código en inglés
-4. **Verifica** que el proyecto compila sin errores:
+3. **Make your changes** following the project's conventions:
+   - Strict TypeScript — no `any`
+   - Tailwind CSS only for styles — no custom CSS files
+   - UI text in English
+   - Variable names and code in English
+4. **Verify** that the project builds without errors:
    ```bash
    npm run build
    ```
-5. **Haz commit** de tus cambios con mensajes descriptivos en español:
+5. **Commit** your changes with descriptive messages in Spanish:
    ```bash
    git commit -m "feat: agregar nueva funcionalidad X"
    ```
-6. **Push** a tu fork:
+6. **Push** to your fork:
    ```bash
-   git push origin feature/mi-nueva-feature
+   git push origin feature/my-new-feature
    ```
-7. **Abre un Pull Request** contra la rama `main` del repositorio original
+7. **Open a Pull Request** against the `main` branch of the original repository
 
-### Convenciones de commits
+### Commit Conventions
 
-Usamos el formato de [Conventional Commits](https://www.conventionalcommits.org/) en español:
+We use the [Conventional Commits](https://www.conventionalcommits.org/) format in Spanish:
 
-- `feat:` — Nueva funcionalidad
-- `fix:` — Corrección de bug
-- `docs:` — Cambios en documentación
-- `refactor:` — Refactorización de código
-- `style:` — Cambios de formato (no funcionales)
+- `feat:` — New feature
+- `fix:` — Bug fix
+- `docs:` — Documentation changes
+- `refactor:` — Code refactoring
+- `style:` — Formatting changes (non-functional)
 
-## Proceso de revisión
+## Review Process
 
-- Todos los pull requests son revisados por el maintainer del proyecto antes de ser aceptados
-- Se puede solicitar cambios o mejoras antes de aprobar el PR
-- Solo el maintainer puede hacer merge a `main`
+- All pull requests are reviewed by the project maintainer before being accepted
+- Changes or improvements may be requested before approving the PR
+- Only the maintainer can merge into `main`
 
-## Entorno de desarrollo
+## Development Environment
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Servidor de desarrollo
+# Development server
 npm run dev
 
-# Verificar tipos
+# Type check
 npx tsc --noEmit
 
-# Build de producción
+# Production build
 npm run build
 ```
 
-## ¿Dudas?
+## Questions?
 
-Si tienes alguna pregunta, abre un issue con la etiqueta `question` y te responderemos lo antes posible.
+If you have any questions, open an issue with the `question` label and we'll respond as soon as possible.
