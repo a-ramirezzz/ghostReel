@@ -2,11 +2,25 @@ import { useState } from 'react'
 import { VideoUploader } from './components/VideoUploader'
 import { VideoPreview } from './components/VideoPreview'
 import { VideoTrimmer } from './components/VideoTrimmer'
-import type { TrimRange, VideoFile } from './types'
+import { TextEditor } from './components/TextEditor'
+import type { TextOverlay, TrimRange, VideoFile } from './types'
+
+const DEFAULT_TEXT_OVERLAY: TextOverlay = {
+  text: '',
+  fontFamily: 'Cinzel',
+  fontSize: 64,
+  color: '#FFFFFF',
+  strokeColor: '#000000',
+  strokeWidth: 2,
+  positionY: 50,
+  textAlign: 'center',
+  lineHeight: 1.4,
+}
 
 function App() {
   const [video, setVideo] = useState<VideoFile | null>(null)
   const [trim, setTrim] = useState<TrimRange | null>(null)
+  const [textOverlay, setTextOverlay] = useState<TextOverlay>(DEFAULT_TEXT_OVERLAY)
 
   const handleVideoLoaded = (loaded: VideoFile) => {
     setVideo(loaded)
@@ -19,6 +33,7 @@ function App() {
     }
     setVideo(null)
     setTrim(null)
+    setTextOverlay(DEFAULT_TEXT_OVERLAY)
   }
 
   const handleTrimChange = (start: number, end: number) => {
@@ -56,9 +71,14 @@ function App() {
             </div>
             <div className="flex gap-6">
               <div className="w-[360px] flex-shrink-0">
-                <VideoPreview videoUrl={video.url} trimStart={trim.start} trimEnd={trim.end} />
+                <VideoPreview
+                  videoUrl={video.url}
+                  trimStart={trim.start}
+                  trimEnd={trim.end}
+                  textOverlay={textOverlay}
+                />
               </div>
-              <div className="flex-1 min-w-[320px] bg-zinc-900 rounded-2xl p-6">
+              <div className="flex-1 min-w-[320px] bg-zinc-900 rounded-2xl p-6 overflow-y-auto max-h-[calc(100vh-140px)]">
                 <VideoTrimmer
                   videoUrl={video.url}
                   duration={video.duration}
@@ -66,6 +86,8 @@ function App() {
                   trimEnd={trim.end}
                   onTrimChange={handleTrimChange}
                 />
+                <hr className="border-zinc-800 my-6" />
+                <TextEditor textOverlay={textOverlay} onTextChange={setTextOverlay} />
               </div>
             </div>
           </div>
