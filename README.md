@@ -5,19 +5,19 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6.svg)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF.svg)
 
-Editor de video 100% del lado del cliente para crear reels verticales sin metadatos, con overlays de texto, filtros y marcas de agua. Todo el procesamiento ocurre en el navegador — ningún archivo se sube a un servidor.
+Client-side video editor for creating metadata-free vertical reels with text overlays, filters, and watermarks.
 
-## Características
+## Features
 
-- **Sin subida a servidor**: el video nunca sale de tu navegador, todo el procesamiento es local
-- **Recorte de video** con `VideoTrimmer` para seleccionar el segmento a exportar
-- **Overlay de texto** en tiempo real sobre el preview del video
-- **Filtros con preview** mediante thumbnails, aplicados tanto en pantalla como en la exportación
-- **Marca de agua** configurable en logo, posición, opacidad y tamaño
-- **Exportación con FFmpeg.wasm**, con presets de calidad y panel de progreso
-- **Eliminación de metadatos** al exportar, para reels "limpios"
+- **No server upload**: your video never leaves your browser, all processing is local
+- **Video trimming** with `VideoTrimmer` to select the segment to export
+- **Text overlay** in real time over the video preview
+- **Filters with preview** via thumbnails, applied both on screen and in the export
+- **Watermark** configurable in logo, position, opacity, and size
+- **Export with FFmpeg.wasm**, with quality presets and a progress panel
+- **Metadata removal** on export, for "clean" reels
 
-## Stack técnico
+## Tech Stack
 
 - [Vite](https://vite.dev)
 - [React](https://react.dev)
@@ -25,45 +25,45 @@ Editor de video 100% del lado del cliente para crear reels verticales sin metada
 - [Tailwind CSS v4](https://tailwindcss.com)
 - [FFmpeg.wasm](https://ffmpegwasm.netlify.app)
 
-## Empezando
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-### Otros comandos
+### Other Commands
 
 ```bash
-# Verificar tipos
+# Type check
 npx tsc --noEmit
 
 # Lint
 npm run lint
 
-# Build de producción
+# Production build
 npm run build
 
-# Previsualizar build de producción
+# Preview production build
 npm run preview
 ```
 
-## Notas técnicas
+## Technical Notes
 
-- FFmpeg.wasm requiere los headers `Cross-Origin-Embedder-Policy: require-corp` y `Cross-Origin-Opener-Policy: same-origin`, ya configurados en `vite.config.ts`
-- Las fuentes se descargan en tiempo de exportación desde [Fontsource](https://fontsource.org) vía CDN y se escriben al filesystem virtual de FFmpeg
-- El preview usa CSS filters mientras que la exportación usa los filtros nativos de FFmpeg, por lo que puede haber diferencias sutiles entre preview y resultado final
+- FFmpeg.wasm requires the `Cross-Origin-Embedder-Policy: require-corp` and `Cross-Origin-Opener-Policy: same-origin` headers, already configured in `vite.config.ts`
+- Fonts are downloaded at export time from [Fontsource](https://fontsource.org) via CDN and written to FFmpeg's virtual filesystem
+- The preview uses CSS filters while the export uses FFmpeg's native filters, so there may be subtle differences between the preview and the final result
 
-## Contribuir
+## Contributing
 
-Las contribuciones son bienvenidas. Por favor lee [CONTRIBUTING.md](CONTRIBUTING.md) antes de enviar un pull request.
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
 
-## Licencia
+## License
 
-Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
-  Hecho con 🖤 por <a href="https://github.com/a-ramirezzz">a-ramirezzz</a>
+  Made with 🖤 by <a href="https://github.com/a-ramirezzz">a-ramirezzz</a>
 </p>
