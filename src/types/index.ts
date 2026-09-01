@@ -7,3 +7,8 @@ export interface VideoFile {
   width: number;
   height: number;
 }
+
+export interface TrimRange {
+  start: number;
+  end: number;
+}
