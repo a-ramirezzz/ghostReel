@@ -3,8 +3,8 @@ import type { ExportPreset } from '../types'
 export const EXPORT_PRESETS: ExportPreset[] = [
   {
     id: 'optimized',
-    name: 'Facebook Optimizado',
-    description: '1080×1920 · Bitrate medio · Ideal para subir',
+    name: 'Facebook Optimized',
+    description: '1080×1920 · Medium bitrate · Ready to upload',
     width: 1080,
     height: 1920,
     crf: 23,
@@ -12,8 +12,8 @@ export const EXPORT_PRESETS: ExportPreset[] = [
   },
   {
     id: 'high-quality',
-    name: 'Alta Calidad',
-    description: '1080×1920 · Bitrate alto · Archivo / respaldo',
+    name: 'High Quality',
+    description: '1080×1920 · High bitrate · Archive / backup',
     width: 1080,
     height: 1920,
     crf: 18,

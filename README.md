@@ -63,7 +63,3 @@ Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
-
-<p align="center">
-  Made with 🖤 by <a href="https://github.com/a-ramirezzz">a-ramirezzz</a>
-</p>

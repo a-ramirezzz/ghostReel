@@ -68,7 +68,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
 
   return (
     <section>
-      <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">Marca de agua</h2>
+      <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-3">Watermark</h2>
 
       {!watermark && (
         <div
@@ -78,7 +78,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click()
           }}
-          className="h-20 w-full bg-zinc-800 border border-dashed border-zinc-700 rounded-xl flex items-center justify-center gap-2 cursor-pointer hover:border-violet-500 transition-colors"
+          className="h-16 w-full bg-zinc-800 border border-dashed border-zinc-700 rounded-xl flex items-center justify-center gap-2 cursor-pointer hover:border-violet-500 hover:bg-zinc-800/50 transition-all duration-200"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 7.5 12 3m0 0L7.5 7.5M12 3v13.5" />
           </svg>
-          <span className="text-sm text-zinc-400">Subir logo</span>
+          <span className="text-sm text-zinc-400">Upload logo</span>
           <input
             ref={fileInputRef}
             type="file"
@@ -113,7 +113,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
             <button
               type="button"
               onClick={handleRemove}
-              aria-label="Quitar marca de agua"
+              aria-label="Remove watermark"
               className="text-zinc-500 hover:text-red-400 transition-colors"
             >
               <svg
@@ -130,7 +130,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
           </div>
 
           <div>
-            <p className="text-xs text-zinc-400 mb-2">Posición</p>
+            <p className="text-xs text-zinc-400 mb-2">Position</p>
             <div className="grid grid-cols-2 gap-2 w-fit">
               {POSITIONS.map((position) => {
                 const selected = watermark.position === position
@@ -155,7 +155,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
 
           <div>
             <label htmlFor="watermark-opacity" className="text-xs text-zinc-400 block mb-1">
-              Opacidad: {Math.round(watermark.opacity * 100)}%
+              Opacity: {Math.round(watermark.opacity * 100)}%
             </label>
             <input
               id="watermark-opacity"
@@ -165,13 +165,13 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
               step={5}
               value={Math.round(watermark.opacity * 100)}
               onChange={handleOpacityChange}
-              className="w-full accent-violet-500"
+              className="w-full"
             />
           </div>
 
           <div>
             <label htmlFor="watermark-size" className="text-xs text-zinc-400 block mb-1">
-              Tamaño: {watermark.size}%
+              Size: {watermark.size}%
             </label>
             <input
               id="watermark-size"
@@ -181,7 +181,7 @@ export function WatermarkEditor({ watermark, onWatermarkChange }: WatermarkEdito
               step={1}
               value={watermark.size}
               onChange={handleSizeChange}
-              className="w-full accent-violet-500"
+              className="w-full"
             />
           </div>
         </div>

@@ -91,7 +91,7 @@ export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filter
     <div>
       <div
         ref={containerRef}
-        className="relative aspect-[9/16] max-h-[70vh] mx-auto rounded-2xl overflow-hidden bg-black border border-zinc-800"
+        className="relative aspect-[9/16] max-h-[70vh] mx-auto rounded-2xl overflow-hidden bg-black border border-zinc-800/50 shadow-2xl shadow-black/50"
       >
         <video
           ref={videoRef}
@@ -110,7 +110,7 @@ export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filter
         {watermark && (
           <img
             src={watermark.imageUrl}
-            alt="Marca de agua"
+            alt="Watermark"
             className={`absolute w-auto h-auto pointer-events-none ${WATERMARK_POSITION_CLASSES[watermark.position]}`}
             style={{ maxWidth: `${(watermark.size / 100) * scale * EXPORT_WIDTH}px`, opacity: watermark.opacity }}
           />
@@ -126,9 +126,11 @@ export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filter
           </div>
         )}
       </div>
-      <p className="text-xs text-zinc-500 text-center mt-2">
-        {formatTime(currentTime)} / {formatTime(duration)}
-      </p>
+      <div className="text-center">
+        <span className="text-[11px] text-zinc-500 bg-zinc-900/50 px-3 py-1 rounded-full mt-2 inline-block">
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </span>
+      </div>
     </div>
   )
 }

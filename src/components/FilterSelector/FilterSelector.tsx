@@ -32,7 +32,7 @@ export function FilterSelector({ videoUrl, selectedFilterId, onFilterChange }: F
 
   return (
     <section>
-      <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">Filtro</h2>
+      <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-3">Filter</h2>
       <video
         ref={videoRef}
         src={videoUrl}
@@ -52,7 +52,7 @@ export function FilterSelector({ videoUrl, selectedFilterId, onFilterChange }: F
               key={filter.id}
               type="button"
               onClick={() => onFilterChange(filter.id)}
-              className={`w-16 h-28 rounded-lg overflow-hidden cursor-pointer border-2 transition-all flex-shrink-0 relative ${
+              className={`w-[72px] h-[100px] rounded-lg overflow-hidden cursor-pointer border-2 transition-all duration-200 hover:scale-105 flex-shrink-0 relative ${
                 selected ? 'border-violet-500 shadow-lg shadow-violet-500/20' : 'border-zinc-700 hover:border-zinc-500'
               }`}
             >
@@ -64,7 +64,7 @@ export function FilterSelector({ videoUrl, selectedFilterId, onFilterChange }: F
                   className="object-cover w-full h-full"
                 />
               )}
-              <span className="text-[10px] text-center text-zinc-300 bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 inset-x-0 py-1">
+              <span className="text-[10px] font-medium tracking-wide text-center text-zinc-300 bg-gradient-to-t from-black/80 to-transparent absolute bottom-0 inset-x-0 py-1">
                 {filter.name}
               </span>
             </button>

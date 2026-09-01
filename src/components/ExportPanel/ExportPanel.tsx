@@ -71,7 +71,7 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
           const fontData = await downloadFont(textOverlay.fontFamily)
           await ffmpeg.writeFile(fontFileName, fontData)
         } catch (error) {
-          console.warn('[GhostReel] No se pudo descargar la fuente, se exportará sin texto:', error)
+          console.warn('[GhostReel] Could not download the font, exporting without text:', error)
           hasTextOverlay = false
         }
       }
@@ -115,9 +115,9 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
         data = await ffmpeg.readFile(OUTPUT_FILENAME)
       } catch {
         if (!execSucceeded) {
-          throw new Error('La exportación falló. Intenta con un video más corto o diferente formato.')
+          throw new Error('Export failed. Try a shorter video or a different format.')
         }
-        throw new Error('FFmpeg no generó el archivo de salida. Revisa la consola para ver los logs de FFmpeg.')
+        throw new Error('FFmpeg did not generate the output file. Check the console for FFmpeg logs.')
       }
       const bytes = data instanceof Uint8Array ? data : new TextEncoder().encode(data)
       const blob = new Blob([new Uint8Array(bytes)], { type: 'video/mp4' })
@@ -136,34 +136,34 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
       setStatus('done')
     } catch (error) {
       console.error(error)
-      setErrorMessage(error instanceof Error ? error.message : 'Ocurrió un error al exportar el video.')
+      setErrorMessage(error instanceof Error ? error.message : 'An error occurred while exporting the video.')
       setStatus('error')
     }
   }
 
   const buttonLabel =
     status === 'loading-engine'
-      ? 'Cargando motor...'
+      ? 'Loading engine...'
       : status === 'processing'
-        ? 'Procesando...'
+        ? 'Processing...'
         : status === 'done'
-          ? '¡Listo! Descargar'
-          : 'Exportar video'
+          ? 'Done! Download'
+          : 'Export video'
 
   const buttonClasses =
     status === 'done'
-      ? 'bg-green-600 text-white'
+      ? 'bg-gradient-to-r from-green-600 to-emerald-500 text-white shadow-lg shadow-green-500/20'
       : status === 'processing'
         ? 'bg-violet-700 text-white'
-        : 'bg-violet-600 hover:bg-violet-500 text-white'
+        : 'bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 text-white shadow-lg shadow-violet-500/20 hover:shadow-violet-500/30'
 
   const isBusy = status === 'loading-engine' || status === 'processing'
 
   return (
     <section>
-      <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">Exportar</h2>
+      <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-3">Export</h2>
 
-      <p className="text-xs text-zinc-400 mb-2">Calidad de exportación</p>
+      <p className="text-xs text-zinc-400 mb-2">Export quality</p>
       <div className="flex flex-col gap-2">
         {EXPORT_PRESETS.map((preset) => {
           const selected = preset.id === selectedPreset.id
@@ -174,10 +174,36 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
               disabled={isBusy}
               onClick={() => setSelectedPreset(preset)}
               className={`w-full p-3 rounded-xl border transition-colors cursor-pointer text-left disabled:cursor-not-allowed disabled:opacity-60 ${
-                selected ? 'bg-violet-500/15 border-violet-500' : 'bg-zinc-800 border-zinc-700 hover:border-zinc-500'
+                selected ? 'bg-violet-500/10 border-violet-500/60' : 'bg-zinc-800 border-zinc-700 hover:border-zinc-500'
               }`}
             >
-              <p className="text-sm font-medium text-zinc-100">{preset.name}</p>
+              <div className="flex items-center gap-1.5">
+                {preset.id === 'optimized' ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    className="w-3.5 h-3.5 text-zinc-400"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a14.7 14.7 0 0 1 0 18 14.7 14.7 0 0 1 0-18Z" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    className="w-3.5 h-3.5 text-zinc-400"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
+                  </svg>
+                )}
+                <p className="text-sm font-medium text-zinc-100">{preset.name}</p>
+              </div>
               <p className="text-xs text-zinc-400 mt-0.5">{preset.description}</p>
             </button>
           )
@@ -188,7 +214,7 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
         type="button"
         onClick={handleExport}
         disabled={isBusy}
-        className={`w-full mt-4 flex items-center justify-center gap-2 font-semibold py-3 rounded-xl transition-colors disabled:cursor-not-allowed ${buttonClasses}`}
+        className={`w-full mt-4 flex items-center justify-center gap-2 font-semibold py-3 rounded-xl transition-all duration-300 disabled:cursor-not-allowed ${buttonClasses}`}
       >
         {status === 'loading-engine' && (
           <svg
@@ -232,12 +258,12 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
         <div className="mt-3">
           <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
             <div
-              className="h-full bg-violet-500 rounded-full transition-all duration-300"
+              className="h-full bg-gradient-to-r from-violet-600 to-violet-400 rounded-full transition-all duration-300 animate-pulse"
               style={{ width: `${Math.round(progress * 100)}%` }}
             />
           </div>
           <p className="text-xs text-zinc-400 text-center mt-1">{Math.round(progress * 100)}%</p>
-          <p className="text-xs text-zinc-500 text-center mt-1">Esto puede tomar 1-3 minutos</p>
+          <p className="text-xs text-zinc-500 text-center mt-1">This may take 1-3 minutes</p>
         </div>
       )}
 
@@ -249,7 +275,7 @@ export function ExportPanel({ videoFile, trimStart, trimEnd, textOverlay, select
             onClick={handleExport}
             className="mt-2 text-sm text-zinc-300 hover:text-zinc-100 underline transition-colors cursor-pointer"
           >
-            Reintentar
+            Retry
           </button>
         </div>
       )}

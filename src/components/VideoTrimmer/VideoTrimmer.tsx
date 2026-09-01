@@ -77,7 +77,7 @@ export function VideoTrimmer({ videoUrl, duration, trimStart, trimEnd, onTrimCha
 
   return (
     <section>
-      <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">Recortar video</h3>
+      <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-3">Trim</h3>
 
       <video ref={hiddenVideoRef} src={videoUrl} muted className="hidden" />
 
@@ -101,11 +101,11 @@ export function VideoTrimmer({ videoUrl, duration, trimStart, trimEnd, onTrimCha
       </div>
 
       <div className="flex justify-between mt-2">
-        <span className="text-xs text-zinc-400">Inicio: {formatTime(trimStart)}</span>
-        <span className="text-xs text-zinc-400">Fin: {formatTime(trimEnd)}</span>
+        <span className="text-xs text-zinc-400">Start: {formatTime(trimStart)}</span>
+        <span className="text-xs text-zinc-400">End: {formatTime(trimEnd)}</span>
       </div>
 
-      <p className="text-xs text-zinc-500 text-center mt-1">Duración: {formatTime(trimEnd - trimStart)}</p>
+      <p className="text-xs text-zinc-500 text-center mt-1">Duration: {formatTime(trimEnd - trimStart)}</p>
     </section>
   )
 }
