@@ -13,6 +13,13 @@ export interface TrimRange {
   end: number;
 }
 
+export interface VideoFilter {
+  id: string;
+  name: string;
+  cssFilter: string; // CSS filter() value for preview
+  ffmpegFilter: string; // FFmpeg filter_complex string for export (used later)
+}
+
 export interface TextOverlay {
   text: string;
   fontFamily: string;

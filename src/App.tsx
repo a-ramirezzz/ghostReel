@@ -3,6 +3,7 @@ import { VideoUploader } from './components/VideoUploader'
 import { VideoPreview } from './components/VideoPreview'
 import { VideoTrimmer } from './components/VideoTrimmer'
 import { TextEditor } from './components/TextEditor'
+import { FilterSelector } from './components/FilterSelector'
 import type { TextOverlay, TrimRange, VideoFile } from './types'
 
 const DEFAULT_TEXT_OVERLAY: TextOverlay = {
@@ -21,6 +22,7 @@ function App() {
   const [video, setVideo] = useState<VideoFile | null>(null)
   const [trim, setTrim] = useState<TrimRange | null>(null)
   const [textOverlay, setTextOverlay] = useState<TextOverlay>(DEFAULT_TEXT_OVERLAY)
+  const [selectedFilterId, setSelectedFilterId] = useState('none')
 
   const handleVideoLoaded = (loaded: VideoFile) => {
     setVideo(loaded)
@@ -34,6 +36,7 @@ function App() {
     setVideo(null)
     setTrim(null)
     setTextOverlay(DEFAULT_TEXT_OVERLAY)
+    setSelectedFilterId('none')
   }
 
   const handleTrimChange = (start: number, end: number) => {
@@ -76,6 +79,7 @@ function App() {
                   trimStart={trim.start}
                   trimEnd={trim.end}
                   textOverlay={textOverlay}
+                  filterId={selectedFilterId}
                 />
               </div>
               <div className="flex-1 min-w-[320px] bg-zinc-900 rounded-2xl p-6 overflow-y-auto max-h-[calc(100vh-140px)]">
@@ -88,6 +92,12 @@ function App() {
                 />
                 <hr className="border-zinc-800 my-6" />
                 <TextEditor textOverlay={textOverlay} onTextChange={setTextOverlay} />
+                <hr className="border-zinc-800 my-6" />
+                <FilterSelector
+                  videoUrl={video.url}
+                  selectedFilterId={selectedFilterId}
+                  onFilterChange={setSelectedFilterId}
+                />
               </div>
             </div>
           </div>

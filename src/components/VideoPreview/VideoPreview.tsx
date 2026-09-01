@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { useContainerScale } from '../../hooks/useContainerScale'
+import { VIDEO_FILTERS } from '../../utils/filters'
 import type { TextOverlay } from '../../types'
 
 interface VideoPreviewProps {
@@ -8,6 +9,7 @@ interface VideoPreviewProps {
   trimStart?: number
   trimEnd?: number
   textOverlay?: TextOverlay
+  filterId?: string
 }
 
 const EXPORT_WIDTH = 1080
@@ -19,7 +21,7 @@ function formatTime(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`
 }
 
-export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay }: VideoPreviewProps) {
+export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filterId }: VideoPreviewProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentTime, setCurrentTime] = useState(0)
@@ -51,6 +53,7 @@ export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay }: Vide
   }
 
   const showText = Boolean(textOverlay && textOverlay.text.trim().length > 0)
+  const cssFilter = VIDEO_FILTERS.find((f) => f.id === filterId)?.cssFilter ?? 'none'
 
   let textStyle: CSSProperties = {}
   if (textOverlay && showText) {
@@ -94,6 +97,7 @@ export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay }: Vide
           onLoadedMetadata={handleLoadedMetadata}
           onLoadedData={handleLoadedData}
           className="w-full h-full object-contain"
+          style={{ filter: cssFilter }}
         />
         {showText && textOverlay && (
           <div className="absolute inset-0 flex justify-center pointer-events-none overflow-hidden">
