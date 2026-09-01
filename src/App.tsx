@@ -4,7 +4,8 @@ import { VideoPreview } from './components/VideoPreview'
 import { VideoTrimmer } from './components/VideoTrimmer'
 import { TextEditor } from './components/TextEditor'
 import { FilterSelector } from './components/FilterSelector'
-import type { TextOverlay, TrimRange, VideoFile } from './types'
+import { WatermarkEditor } from './components/WatermarkEditor'
+import type { TextOverlay, TrimRange, VideoFile, Watermark } from './types'
 
 const DEFAULT_TEXT_OVERLAY: TextOverlay = {
   text: '',
@@ -23,6 +24,7 @@ function App() {
   const [trim, setTrim] = useState<TrimRange | null>(null)
   const [textOverlay, setTextOverlay] = useState<TextOverlay>(DEFAULT_TEXT_OVERLAY)
   const [selectedFilterId, setSelectedFilterId] = useState('none')
+  const [watermark, setWatermark] = useState<Watermark | null>(null)
 
   const handleVideoLoaded = (loaded: VideoFile) => {
     setVideo(loaded)
@@ -33,10 +35,14 @@ function App() {
     if (video) {
       URL.revokeObjectURL(video.url)
     }
+    if (watermark) {
+      URL.revokeObjectURL(watermark.imageUrl)
+    }
     setVideo(null)
     setTrim(null)
     setTextOverlay(DEFAULT_TEXT_OVERLAY)
     setSelectedFilterId('none')
+    setWatermark(null)
   }
 
   const handleTrimChange = (start: number, end: number) => {
@@ -80,6 +86,7 @@ function App() {
                   trimEnd={trim.end}
                   textOverlay={textOverlay}
                   filterId={selectedFilterId}
+                  watermark={watermark}
                 />
               </div>
               <div className="flex-1 min-w-[320px] bg-zinc-900 rounded-2xl p-6 overflow-y-auto max-h-[calc(100vh-140px)]">
@@ -98,6 +105,8 @@ function App() {
                   selectedFilterId={selectedFilterId}
                   onFilterChange={setSelectedFilterId}
                 />
+                <hr className="border-zinc-800 my-6" />
+                <WatermarkEditor watermark={watermark} onWatermarkChange={setWatermark} />
               </div>
             </div>
           </div>

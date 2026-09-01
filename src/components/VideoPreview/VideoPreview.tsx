@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { useContainerScale } from '../../hooks/useContainerScale'
 import { VIDEO_FILTERS } from '../../utils/filters'
-import type { TextOverlay } from '../../types'
+import type { TextOverlay, Watermark } from '../../types'
 
 interface VideoPreviewProps {
   videoUrl: string
@@ -10,9 +10,17 @@ interface VideoPreviewProps {
   trimEnd?: number
   textOverlay?: TextOverlay
   filterId?: string
+  watermark?: Watermark | null
 }
 
 const EXPORT_WIDTH = 1080
+
+const WATERMARK_POSITION_CLASSES: Record<Watermark['position'], string> = {
+  'top-left': 'top-3 left-3',
+  'top-right': 'top-3 right-3',
+  'bottom-left': 'bottom-3 left-3',
+  'bottom-right': 'bottom-3 right-3',
+}
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds)) return '0:00'
@@ -21,7 +29,7 @@ function formatTime(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`
 }
 
-export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filterId }: VideoPreviewProps) {
+export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filterId, watermark }: VideoPreviewProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentTime, setCurrentTime] = useState(0)
@@ -99,6 +107,14 @@ export function VideoPreview({ videoUrl, trimStart, trimEnd, textOverlay, filter
           className="w-full h-full object-contain"
           style={{ filter: cssFilter }}
         />
+        {watermark && (
+          <img
+            src={watermark.imageUrl}
+            alt="Marca de agua"
+            className={`absolute w-auto h-auto pointer-events-none ${WATERMARK_POSITION_CLASSES[watermark.position]}`}
+            style={{ maxWidth: `${(watermark.size / 100) * scale * EXPORT_WIDTH}px`, opacity: watermark.opacity }}
+          />
+        )}
         {showText && textOverlay && (
           <div className="absolute inset-0 flex justify-center pointer-events-none overflow-hidden">
             <div

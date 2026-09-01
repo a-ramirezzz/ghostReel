@@ -20,6 +20,14 @@ export interface VideoFilter {
   ffmpegFilter: string; // FFmpeg filter_complex string for export (used later)
 }
 
+export interface Watermark {
+  imageUrl: string; // object URL of the uploaded logo
+  file: File; // original file (needed for FFmpeg export later)
+  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  opacity: number; // 0 to 1
+  size: number; // percentage of video width (10-40)
+}
+
 export interface TextOverlay {
   text: string;
   fontFamily: string;
